@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #1
 #declare -a SERVER_IPS="10.188.228.169"
 
