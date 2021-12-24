@@ -8,7 +8,7 @@ pipeline {
 
             steps {
                 echo 'Building image knovel-jmeter:1.0 '
-
+                sh 'echo $(whoami)'
                 sh 'docker build -t knovel-jmeter:1.0 .'
             }
         }
