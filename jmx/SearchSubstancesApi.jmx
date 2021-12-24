@@ -343,23 +343,22 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search  using solr internally- collection 1" enabled="true">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search - Query - Api" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
-                <elementProp name="q" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">${Q}</stringProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&quot;APIKEY&quot;:&quot;CCBABEC9-B3E1-4203-8FA7-F880FB4BE9AA&quot;,&quot;APPLICATION_NAME&quot;:&quot;api tester&quot;,&quot;CLIENT_TRACK_ID&quot;:&quot;knovel&quot;,&quot;METHOD&quot;:{&quot;NAME&quot;:&quot;search\/query&quot;,&quot;PARAMS&quot;:{&quot;Q&quot;:&quot;${Q}&quot;,&quot;ROWS&quot;:&quot;25&quot;,&quot;OFFSET&quot;:&quot;0&quot;,&quot;GROUP_FACET_SELECTED&quot;:&quot;all_references&quot;,&quot;GROUP_SUB_FACET_SELECTED&quot;:&quot;&quot;,&quot;MY_SUBSCRIPTION&quot;:&quot;FALSE&quot;,&quot;MULTI_FACETS&quot;:&quot;&quot;,&quot;ORG_GUID&quot;:&quot;&quot;,&quot;SORT_ON&quot;:&quot;default&quot;,&quot;SHOW_SEARCH_CARD&quot;:&quot;FALSE&quot;,&quot;TAXONOMY_FACET_SELECTED&quot;:&quot;&quot;,&quot;MOBILE_ENABLED&quot;:&quot;FALSE&quot;,&quot;QA_DEBUG&quot;:&quot;FALSE&quot;},&quot;TYPE&quot;:&quot;GET&quot;,&quot;CLIENT_IP&quot;:&quot;50.18.196.173&quot;},&quot;OPTIONAL_INPUT&quot;:{&quot;USER_AGENT&quot;:&quot;Jmeter&quot;,&quot;WEB_SERVER&quot;:&quot;10.20.20.114&quot;,&quot;REFERRER&quot;:&quot;http:\/\/qa-new.knewknovel.com\/&quot;,&quot;ROUTE&quot;:&quot;\/&quot;},&quot;SESSION&quot;:{&quot;ID&quot;:&quot;${SID}&quot;}}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">q</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">localhost</stringProp>
-            <stringProp name="HTTPSampler.port">8080</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.domain">qa.knewknovel.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/solr/collection1/select</stringProp>
+            <stringProp name="HTTPSampler.path">/api</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -372,6 +371,27 @@
             <stringProp name="TestPlan.comments">Only Q</stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1226628847">&quot;STATUS_MSG&quot;:&quot;Error returned from solr&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">6</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1197996876">&quot;UNIT_SEARCH_CARD&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="TestPlan.comments">&quot;category1&quot;</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
             <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -398,41 +418,6 @@ vars.put(&quot;query&quot;,&quot;${Q}&quot;);</stringProp>
               <stringProp name="RegexExtractor.default">NA</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
             </RegexExtractor>
-            <hashTree/>
-            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
-              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
-              <stringProp name="RegexExtractor.refname">TOTAL_TIME_SECONDS</stringProp>
-              <stringProp name="RegexExtractor.regex">&quot;TOTAL_TIME_SECONDS&quot;:(.*?)}</stringProp>
-              <stringProp name="RegexExtractor.template">$1$</stringProp>
-              <stringProp name="RegexExtractor.default">NA</stringProp>
-              <stringProp name="RegexExtractor.match_number">1</stringProp>
-            </RegexExtractor>
-            <hashTree/>
-            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
-              <boolProp name="resetInterpreter">false</boolProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="script">String Q,QT,SCOUNT,TT;
-Q = vars.get(&quot;query&quot;);
-QT = vars.get(&quot;qtime&quot;);
-SCOUNT = vars.get(&quot;SCOUNT&quot;);
-TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
-long responseTime = prev.getTime();
-
-try{
-	FileWriter w = new FileWriter(vars.get(&quot;Filepath&quot;)+&quot;/Result_&quot;+vars.get(&quot;thread_num&quot;)+&quot;.csv&quot;,true);
-	BufferedWriter bfr = new BufferedWriter(w);
-
-	bfr.write(Q+&quot;@&quot;+QT+&quot;@&quot;+SCOUNT+&quot;@&quot;+TTS+&quot;@&quot;+responseTime);
-
-	bfr.newLine();
-	bfr.flush();
-}
-catch(Exception e){
-	log.info(&quot;This line has been written by Beanshell Post Processor&quot;);
-}
-</stringProp>
-            </BeanShellPostProcessor>
             <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -505,35 +490,70 @@ catch(Exception e){
                   <connectTime>true</connectTime>
                 </value>
               </objProp>
-              <stringProp name="filename"></stringProp>
+              <stringProp name="filename">query-report-api.csv</stringProp>
               <boolProp name="useGroupName">true</boolProp>
             </ResultCollector>
             <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String Q,QT,SCOUNT,TT;
+Q = vars.get(&quot;query&quot;);
+QT = vars.get(&quot;qtime&quot;);
+SCOUNT = vars.get(&quot;SCOUNT&quot;);
+TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
+long responseTime = prev.getTime();
+
+try{
+	FileWriter w = new FileWriter(vars.get(&quot;Filepath&quot;)+&quot;/Result_&quot;+vars.get(&quot;thread_num&quot;)+&quot;.csv&quot;,true);
+	BufferedWriter bfr = new BufferedWriter(w);
+
+	bfr.write(Q+&quot;@&quot;+QT+&quot;@&quot;+SCOUNT+&quot;@&quot;+TTS+&quot;@&quot;+responseTime);
+
+	bfr.newLine();
+	bfr.flush();
+}
+catch(Exception e){
+	log.info(&quot;This line has been written by Beanshell Post Processor&quot;);
+}
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">TOTAL_TIME_SECONDS</stringProp>
+              <stringProp name="RegexExtractor.regex">&quot;TOTAL_TIME_SECONDS&quot;:(.*?)}</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default">NA</stringProp>
+              <stringProp name="RegexExtractor.match_number">1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search with facet  using solr internally- collection 1" enabled="false">
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Search - Query - Facets" enabled="false">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
-                <elementProp name="q" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                  <stringProp name="Argument.value">${Q}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">q</stringProp>
-                </elementProp>
-                <elementProp name="facet" elementType="HTTPArgument">
+                <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">on</stringProp>
+                  <stringProp name="Argument.value">{&quot;APIKEY&quot;:&quot;CCBABEC9-B3E1-4203-8FA7-F880FB4BE9AA&quot;,&quot;APPLICATION_NAME&quot;:&quot;api tester&quot;,&quot;CLIENT_TRACK_ID&quot;:&quot;knovel&quot;,&quot;METHOD&quot;:{&quot;NAME&quot;:&quot;search\/query-facets&quot;,&quot;PARAMS&quot;:{&quot;Q&quot;:&quot;${Q}&quot;,&quot;GROUP_FACET_SELECTED&quot;:&quot;all_references&quot;,&#xd;
+         &quot;GROUP_SUB_FACET_SELECTED&quot;:&quot;&quot;,&#xd;
+         &quot;MY_SUBSCRIPTION&quot;:&quot;FALSE&quot;,&#xd;
+         &quot;INCLUDE_SYNONYMS&quot;:&quot;no&quot;,&#xd;
+         &quot;ORG_GUID&quot;:&quot;&quot;,&#xd;
+         &quot;MOBILE_ENABLED&quot;:&quot;FALSE&quot;,&#xd;
+         &quot;QA_DEBUG&quot;:&quot;FALSE&quot;,&#xd;
+         &quot;CLUSTER&quot;:&quot;&quot;},&quot;TYPE&quot;:&quot;GET&quot;,&quot;CLIENT_IP&quot;:&quot;50.18.196.173&quot;},&quot;OPTIONAL_INPUT&quot;:{&quot;USER_AGENT&quot;:&quot;Jmeter&quot;,&quot;WEB_SERVER&quot;:&quot;10.20.20.114&quot;,&quot;REFERRER&quot;:&quot;http:\/\/qa-new.knewknovel.com\/&quot;,&quot;ROUTE&quot;:&quot;\/&quot;},&quot;SESSION&quot;:{&quot;ID&quot;:&quot;${SID}&quot;}}&#xd;
+</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
-                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  <stringProp name="Argument.name">facet</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">localhost</stringProp>
-            <stringProp name="HTTPSampler.port">8080</stringProp>
-            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.domain">qa.knewknovel.com</stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">/solr/collection1/select</stringProp>
+            <stringProp name="HTTPSampler.path">/api</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -546,6 +566,27 @@ catch(Exception e){
             <stringProp name="TestPlan.comments">Only Q</stringProp>
           </HTTPSamplerProxy>
           <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="false">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1226628847">&quot;STATUS_MSG&quot;:&quot;Error returned from solr&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">6</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1197996876">&quot;UNIT_SEARCH_CARD&quot;</stringProp>
+              </collectionProp>
+              <stringProp name="TestPlan.comments">&quot;category1&quot;</stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
             <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
@@ -581,32 +622,6 @@ vars.put(&quot;query&quot;,&quot;${Q}&quot;);</stringProp>
               <stringProp name="RegexExtractor.default">NA</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
             </RegexExtractor>
-            <hashTree/>
-            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
-              <boolProp name="resetInterpreter">false</boolProp>
-              <stringProp name="parameters"></stringProp>
-              <stringProp name="filename"></stringProp>
-              <stringProp name="script">String Q,QT,SCOUNT,TT;
-Q = vars.get(&quot;query&quot;);
-QT = vars.get(&quot;qtime&quot;);
-SCOUNT = vars.get(&quot;SCOUNT&quot;);
-TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
-long responseTime = prev.getTime();
-
-try{
-	FileWriter w = new FileWriter(vars.get(&quot;Filepath&quot;)+&quot;/Result_&quot;+vars.get(&quot;thread_num&quot;)+&quot;.csv&quot;,true);
-	BufferedWriter bfr = new BufferedWriter(w);
-
-	bfr.write(Q+&quot;@&quot;+QT+&quot;@&quot;+SCOUNT+&quot;@&quot;+TTS+&quot;@&quot;+responseTime);
-
-	bfr.newLine();
-	bfr.flush();
-}
-catch(Exception e){
-	log.info(&quot;This line has been written by Beanshell Post Processor&quot;);
-}
-</stringProp>
-            </BeanShellPostProcessor>
             <hashTree/>
             <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
               <boolProp name="ResultCollector.error_logging">false</boolProp>
@@ -679,8 +694,34 @@ catch(Exception e){
                   <connectTime>true</connectTime>
                 </value>
               </objProp>
-              <stringProp name="filename"></stringProp>
+              <stringProp name="filename">facet-report-api.csv</stringProp>
             </ResultCollector>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">String Q,QT,SCOUNT,TT;
+Q = vars.get(&quot;query&quot;);
+QT = vars.get(&quot;qtime&quot;);
+SCOUNT = vars.get(&quot;SCOUNT&quot;);
+TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
+long responseTime = prev.getTime();
+
+try{
+	FileWriter w = new FileWriter(vars.get(&quot;Filepath&quot;)+&quot;/Result_&quot;+vars.get(&quot;thread_num&quot;)+&quot;.csv&quot;,true);
+	BufferedWriter bfr = new BufferedWriter(w);
+
+	bfr.write(Q+&quot;@&quot;+QT+&quot;@&quot;+SCOUNT+&quot;@&quot;+TTS+&quot;@&quot;+responseTime);
+
+	bfr.newLine();
+	bfr.flush();
+}
+catch(Exception e){
+	log.info(&quot;This line has been written by Beanshell Post Processor&quot;);
+}
+</stringProp>
+            </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
           <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
