@@ -7,18 +7,16 @@ pipeline {
             agent any
 
             steps {
-                echo 'Building image knovel-jmeter:1.0 '
-                sh 'Logged in user: $(whoami)'
                 sh 'docker build -t knovel-jmeter:1.0 .'
             }
         }
         
-        stage ('Running Tests') {
+        stage ('Running Jmeter Tests') {
             agent any
 
             steps {
 
-                sh './client.sh.'
+                sh './client.sh'
             }
         }
     }
