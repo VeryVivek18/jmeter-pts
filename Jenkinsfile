@@ -8,8 +8,8 @@ pipeline {
 
             steps {
                 echo 'Building image knovel-jmeter:1.0 '
-                sh 'Logged in user: $(whoami)'
-                sh 'docker build -t knovel-jmeter:1.0 .'
+                bash 'Logged in user: $(whoami)'
+                bash 'docker build -t knovel-jmeter:1.0 .'
             }
         }
         
@@ -18,7 +18,7 @@ pipeline {
 
             steps {
 
-                sh './client.sh.'
+                bash './client.sh.'
             }
         }
     }
