@@ -4,7 +4,7 @@ pipeline {
     stages {
 
         stage ('Docker Build') {
-            agent { label 'DSK-841' }
+            agent any
 
             steps {
                 echo 'Building image knovel-jmeter:1.0 '
@@ -14,7 +14,7 @@ pipeline {
         }
         
         stage ('Running Tests') {
-            agent { label 'DSK-841' }
+            agent any
 
             steps {
 
