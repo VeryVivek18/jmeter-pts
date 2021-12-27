@@ -20,7 +20,7 @@ pipeline {
 
         stage ('Running Jmeter Tests') {
             steps {
-                sh 'rm -rf ${jmeter_path}/client'
+                sh 'sudo rm -rf ${jmeter_path}/client'
                 sh 'docker run \
                     --network host \
                     -v "${volume_path}":${jmeter_path} \
@@ -38,7 +38,6 @@ pipeline {
             steps {
                 sh 'ls client'
                 sh 'zip -r ' + env.ZIPFILE + '.zip client'
-                sh 'rm -rf ${jmeter_path}/client'
                 emailext (
                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
