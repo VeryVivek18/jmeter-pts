@@ -1,5 +1,8 @@
 pipeline {
-    agent none
+
+    agent {
+        none
+    }
 
     environment {
         FOO = "bar"
