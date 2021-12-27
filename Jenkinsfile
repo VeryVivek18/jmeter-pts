@@ -1,10 +1,9 @@
 pipeline {
-    agent none
+    agent any
 
     stages {
 
         stage ('Docker Build') {
-            agent any
 
             steps {
                 sh 'docker build -t knovel-jmeter:1.0 .'
@@ -12,12 +11,12 @@ pipeline {
         }
 
         stage ('Running Jmeter Tests') {
-            agent any
+
 
             steps {
-
-                sh 'chmod +x ./client.sh'
-                sh './client.sh'
+                sh 'docker run --rm  knovel-jmeter:1.0 '
+//                 sh 'chmod +x ./client.sh'
+//                 sh './client.sh'
             }
         }
     }
