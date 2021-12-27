@@ -33,8 +33,8 @@ pipeline {
 
         stage ('Test Aggregation') {
             steps {
-                sh 'ls ${volume_path}/client/'
-                sh 'zip -r "${env.JOB_NAME}-${env.BUILD_NUMBER}.zip ${volume_path}/client/"'
+                sh 'ls client'
+                sh 'zip -r report.zip client'
                 sh 'ls -lrt'
 //                 emailext (
 //                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
