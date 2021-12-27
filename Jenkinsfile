@@ -29,7 +29,7 @@ pipeline {
                     println("group id is : ${UID2}:${GID2}")
                     println("group id is : ${UGID}")
                     sh 'docker run \
-                        --user + '${UGID}' + \
+                        --user ' + ${UGID} +' \
                         --network host \
                         -v "${volume_path}":${jmeter_path} \
                         --rm \
