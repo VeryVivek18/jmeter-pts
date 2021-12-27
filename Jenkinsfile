@@ -18,7 +18,7 @@ pipeline {
 
             steps {
                 echo "Environment is  ${timestamp}, ${volume_path}, ${jmeter_path} "
-                sh 'docker build -t knovel-jmeter:1.0 '
+                sh 'sudo docker build -t knovel-jmeter:1.0 .'
             }
         }
 
