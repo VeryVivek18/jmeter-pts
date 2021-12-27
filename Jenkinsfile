@@ -6,7 +6,7 @@ pipeline {
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
             BUILD_ID = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
-            ZIPFILE = BUILD_ID + timestamp
+            ZIPFILE = "${BUILD_ID}-${timestamp}"
         }
 
     stages {
