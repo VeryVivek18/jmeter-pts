@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         FOO = "bar"
-        timestamp = sh($(date +%Y%m%d_%H%M%S))
-        volume_path = sh($(pwd))
+        timestamp = sh '$(date +%Y%m%d_%H%M%S)'
+        volume_path = sh '$(pwd)'
         jmeter_path = "/mnt/jmeter"
     }
 
