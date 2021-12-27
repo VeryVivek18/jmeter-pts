@@ -6,6 +6,7 @@ pipeline {
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
             BUILD_ID = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
+            ZIPFILE = BUILD_ID + timestamp
         }
 
     stages {
@@ -35,8 +36,7 @@ pipeline {
         stage ('Test Aggregation') {
             steps {
                 sh 'ls client'
-                def zipfile = env.BUILD_ID+'-'+env.timestamp+'.zip'
-                sh 'zip -r ' + zipfile + ' client'
+                sh 'zip -r ' + env.ZIPFILE + ' client'
                 sh 'ls -a'
 //                 emailext (
 //                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
