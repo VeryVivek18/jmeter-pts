@@ -41,11 +41,24 @@ pipeline {
                 emailext (
                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
-//                     attachmentsPattern: env.ZIPFILE +'.zip',
+                    attachmentsPattern: env.ZIPFILE +'.zip',
+                    mimeType: 'text/html'
                     to: "vivek.topiya@thegatewaycorp.co.in",
                     from: "vivek.topiya@thegatewaycorp.co.in"
                 )
             }
         }
     }
+//     post {
+//         failure {
+//             emailext attachmentsPattern: 'test.zip', body: '''${SCRIPT, template="groovy-html.template"}''',
+//                     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed",
+//                     mimeType: 'text/html',to: "email id"
+//         }
+//         success {
+//            emailext attachmentsPattern: 'test.zip', body: '''${SCRIPT, template="groovy-html.template"}''',
+//                 subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful",
+//                 mimeType: 'text/html',to: "email id"
+//         }
+//     }
 }
