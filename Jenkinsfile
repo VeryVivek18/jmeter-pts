@@ -1,7 +1,7 @@
 pipeline {
 
     agent {
-        none
+        label 'DSK-841'
     }
 
     environment {
