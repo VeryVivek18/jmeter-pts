@@ -20,6 +20,7 @@ pipeline {
 
         stage ('Running Jmeter Tests') {
             steps {
+                sh 'rm -rf ${jmeter_path}/client'
                 sh 'docker run \
                     --network host \
                     -v "${volume_path}":${jmeter_path} \
