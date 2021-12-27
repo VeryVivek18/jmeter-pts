@@ -28,19 +28,18 @@ pipeline {
                     UGID = UID2 + ":" + GID2
                     println("group id is : ${UID2}:${GID2}")
                     println("group id is : ${UGID}")
-
-                sh 'docker run \
-                    --user ${UGID} \
-                    --network host \
-                    -v "${volume_path}":${jmeter_path} \
-                    --rm \
-                    knovel-jmeter:1.0 \
-                    -n -X \
-                    -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
-                    -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                    -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
-                    -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
-                    }
+                    sh 'docker run \
+                        --user '${UGID}' \
+                        --network host \
+                        -v "${volume_path}":${jmeter_path} \
+                        --rm \
+                        knovel-jmeter:1.0 \
+                        -n -X \
+                        -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
+                        -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
+                        -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
+                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
+                }
             }
         }
 
