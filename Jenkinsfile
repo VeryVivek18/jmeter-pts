@@ -35,7 +35,8 @@ pipeline {
         stage ('Test Aggregation') {
             steps {
                 sh 'ls client'
-                sh 'zip -r '+env.BUILD_ID+'.zip client'
+                def zipfile = env.BUILD_ID+'-'+env.timestamp+'.zip'
+                sh 'zip -r ' + zipfile + ' client'
                 sh 'ls -a'
 //                 emailext (
 //                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
