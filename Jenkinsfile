@@ -14,11 +14,11 @@ pipeline {
             jmeter_path = "/mnt/jmeter"
             BUILD_ID = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
             RESULT_PATH = "${BUILD_ID}-${timestamp}"
-            UID = sh(script: "(id -u)", returnStdout: true)
-            GID = sh(script: "(id -g)", returnStdout: true)
-            UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
-            GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
-            UGID = UID2 + ":" + GID2
+            UID = sh(returnStdout: true ,script: "(id -u)").trim()
+            GID = sh(returnStdout: true ,script: "(id -g)").trim()
+//             UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
+//             GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
+            UGID = "${UID2}:${GID2}"
         }
 
     stages {
@@ -57,7 +57,6 @@ pipeline {
 
         stage ('Full Build') {
             when {
-                // Only say hello if a "greeting" is requested
                 expression { params.REQUESTED_FILE == 'All' }
             }
             steps {
