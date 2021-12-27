@@ -18,7 +18,7 @@ pipeline {
             GID = sh(returnStdout: true ,script: "(id -g)").trim()
 //             UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
 //             GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
-            UGID = "${UID2}:${GID2}"
+            UGID = "${UID}:${GID}"
         }
 
     stages {
