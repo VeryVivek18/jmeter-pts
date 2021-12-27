@@ -16,8 +16,6 @@ pipeline {
             RESULT_PATH = "${BUILD_ID}-${timestamp}"
             UID = sh(returnStdout: true ,script: "(id -u)").trim()
             GID = sh(returnStdout: true ,script: "(id -g)").trim()
-//             UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
-//             GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
             UGID = "${UID}:${GID}"
         }
 
@@ -68,8 +66,8 @@ pipeline {
                             -n -X \
                             -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
                             -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                            -l ${jmeter_path}/client/'+server+'/internal-solr-result_${timestamp}.csv \
-                            -j ${jmeter_path}/client/'+server+'/internal-solr-jmeter_${timestamp}.log'
+                            -l ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'/internal-solr-result_${timestamp}.csv \
+                            -j ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'/internal-solr-jmeter_${timestamp}.log'
                     }
                 }
             }
