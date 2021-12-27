@@ -33,7 +33,7 @@ pipeline {
 
         stage ('Test Aggregation') {
                     steps {
-                        sh 'ls ${jmeter_path}/client/'
+                        sh 'ls ${volume_path}/client/'
                     }
                 }
     }
