@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+            FOO = "bar"
+            timestamp = sh(returnStdout: true, script: 'date +%Y%m%d_%H%M%S').trim()
+            volume_path = sh(returnStdout: true, script: 'pwd').trim()
+            jmeter_path = "/mnt/jmeter"
+        }
+
     stages {
 
         stage ('Docker Build') {
@@ -11,12 +18,17 @@ pipeline {
         }
 
         stage ('Running Jmeter Tests') {
-
-
             steps {
-//                 sh 'docker run --rm  knovel-jmeter:1.0 '
-                sh 'chmod +x ./client.sh'
-                sh './client.sh'
+                sh 'docker run \
+                    --network host \
+                    -v "${volume_path}":${jmeter_path} \
+                    --rm \
+                    knovel-jmeter:1.0 \
+                    -n -X \
+                    -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
+                    -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
+                    -l ${jmeter_path}/client/result_${timestamp}.csv \
+                    -j ${jmeter_path}/client/jmeter_${timestamp}.log'
             }
         }
     }
