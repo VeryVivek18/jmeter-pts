@@ -58,8 +58,7 @@ pipeline {
             }
             steps {
                 script {
-                def servers = env.APPLICATION.tokenize(",")
-                    for (server in servers) {
+                    env.APPLICATION.tokenize(",").each { server ->
                         sh 'docker run \
                             --user ' + UGID +' \
                             --network host \
