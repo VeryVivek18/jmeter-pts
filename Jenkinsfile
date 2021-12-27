@@ -28,7 +28,7 @@ pipeline {
                     UGID = UID2 + ":" + GID2
                     println("group id is : ${UID2}:${GID2}")
                     println("group id is : ${UGID}")
-                }
+
                 sh 'docker run \
                     --user ${UGID} \
                     --network host \
@@ -40,6 +40,7 @@ pipeline {
                     -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
                     -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
                     -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
+                    }
             }
         }
 
