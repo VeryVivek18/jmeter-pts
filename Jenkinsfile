@@ -5,7 +5,7 @@ pipeline {
             timestamp = sh(returnStdout: true, script: 'date +%Y%m%d_%H%M%S').trim()
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
-            build_id = ${env.JOB_NAME}+"-"+${env.BUILD_NUMBER}
+            build_id = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
         }
 
     stages {
