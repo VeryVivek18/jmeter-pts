@@ -57,7 +57,6 @@ pipeline {
 
         stage ('Test Report Handling') {
             steps {
-                sh 'ls client'
                 sh 'zip -r client/' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
                 emailext (
                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
