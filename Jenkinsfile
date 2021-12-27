@@ -17,6 +17,7 @@ pipeline {
             agent any
 
             steps {
+                echo "Environment is  ${timestamp}, ${volume_path}, ${jmeter_path} "
                 sh 'docker build -t knovel-jmeter:1.0 .'
             }
         }
@@ -25,7 +26,6 @@ pipeline {
             agent any
 
             steps {
-                echo "Environment is  ${timestamp}, ${volume_path}, ${jmeter_path} "
                 sh 'docker run \
                     --network host \
                     -v "${volume_path}":${jmeter_path} \
