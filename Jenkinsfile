@@ -37,8 +37,20 @@ pipeline {
                         -n -X \
                         -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
                         -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                        -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
-                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'/jmeter_${timestamp}.log'
+                        -l ${jmeter_path}/client/'+env.RESULT_PATH+'/internal-solr-result_${timestamp}.csv \
+                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'/internal-solr-jmeter_${timestamp}.log'
+
+                    sh 'docker run \
+                        --user ' + UGID +' \
+                        --network host \
+                        -v "${volume_path}":${jmeter_path} \
+                        --rm \
+                        knovel-jmeter:1.0 \
+                        -n -X \
+                        -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
+                        -t ${jmeter_path}/jmx/SearchSubstancesApi.jmx \
+                        -l ${jmeter_path}/client/'+env.RESULT_PATH+'/search-api-result_${timestamp}.csv \
+                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'/search-api-jmeter_${timestamp}.log'
                 }
             }
         }
@@ -53,7 +65,7 @@ pipeline {
                     attachmentsPattern: 'client/' + env.RESULT_PATH  +'.zip',
                     mimeType: 'text/html',
                     to: "vivek.topiya@thegatewaycorp.co.in",
-                    from: "abc@gmail.com"
+                    from: "jmeter-pts@thegatewaycorp.co.in"
                 )
             }
         }

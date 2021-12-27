@@ -398,7 +398,8 @@
               <boolProp name="resetInterpreter">false</boolProp>
               <stringProp name="script">String query;
 
-vars.put(&quot;query&quot;,&quot;${Q}&quot;);</stringProp>
+vars.put(&quot;query&quot;,&quot;${Q}&quot;);
+</stringProp>
             </BeanShellPreProcessor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
@@ -503,6 +504,7 @@ Q = vars.get(&quot;query&quot;);
 QT = vars.get(&quot;qtime&quot;);
 SCOUNT = vars.get(&quot;SCOUNT&quot;);
 TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
+
 long responseTime = prev.getTime();
 
 try{
@@ -592,8 +594,10 @@ catch(Exception e){
               <stringProp name="parameters"></stringProp>
               <boolProp name="resetInterpreter">false</boolProp>
               <stringProp name="script">String query;
-
-vars.put(&quot;query&quot;,&quot;${Q}&quot;);</stringProp>
+String facet;
+vars.put(&quot;query&quot;,&quot;${Q}&quot;);
+vars.put(&quot;facet&quot;,&quot;${facets}&quot;);
+</stringProp>
             </BeanShellPreProcessor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="true">
@@ -706,6 +710,7 @@ Q = vars.get(&quot;query&quot;);
 QT = vars.get(&quot;qtime&quot;);
 SCOUNT = vars.get(&quot;SCOUNT&quot;);
 TTS = vars.get(&quot;TOTAL_TIME_SECONDS&quot;);
+props.put(&quot;facet&quot;, vars.get(&quot;facet&quot;));
 long responseTime = prev.getTime();
 
 try{
@@ -795,27 +800,6 @@ catch(Exception e){
             <stringProp name="filename"></stringProp>
             <boolProp name="useGroupName">true</boolProp>
           </ResultCollector>
-          <hashTree/>
-        </hashTree>
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Once Only Controller" enabled="true"/>
-        <hashTree>
-          <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="Java Request" enabled="true">
-            <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="SleepTime" elementType="Argument">
-                  <stringProp name="Argument.name">SleepTime</stringProp>
-                  <stringProp name="Argument.value">${s_t}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-                <elementProp name="SleepMask" elementType="Argument">
-                  <stringProp name="Argument.name">SleepMask</stringProp>
-                  <stringProp name="Argument.value">0x3FF</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-            <stringProp name="classname">org.apache.jmeter.protocol.java.test.SleepTest</stringProp>
-          </JavaSampler>
           <hashTree/>
         </hashTree>
       </hashTree>
