@@ -25,7 +25,7 @@ pipeline {
             agent any
 
             steps {
-
+                echo "Environment is  ${timestamp}, ${volume_path}, ${jmeter_path} "
                 sh 'docker run \
                     --network host \
                     -v "${volume_path}":${jmeter_path} \
