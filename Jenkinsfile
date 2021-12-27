@@ -5,6 +5,7 @@ pipeline {
             timestamp = sh(returnStdout: true, script: 'date +%Y%m%d_%H%M%S').trim()
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
+            build_id = ${env.JOB_NAME}-${env.BUILD_NUMBER}
         }
 
     stages {
@@ -34,8 +35,8 @@ pipeline {
         stage ('Test Aggregation') {
             steps {
                 sh 'ls client'
-                sh 'zip -r report.zip client'
-                sh 'ls -lrt'
+                sh 'zip -r ${build_id}.zip client'
+                sh 'ls -a'
 //                 emailext (
 //                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
 //                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
