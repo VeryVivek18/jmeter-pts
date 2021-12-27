@@ -72,19 +72,40 @@ pipeline {
                 }
             }
         }
-
-        stage ('Test Report Handling') {
-            steps {
-                sh 'zip -r client/' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
-                emailext (
-                    subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
-                    body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
-                    attachmentsPattern: 'client/' + env.RESULT_PATH  +'.zip',
-                    mimeType: 'text/html',
-                    to: "vivek.topiya@thegatewaycorp.co.in",
-                    from: "jmeter-pts@thegatewaycorp.co.in"
-                )
-            }
+//         stage ('Test Report Handling') {
+//             steps {
+//                 sh 'zip -r client/' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
+//                 emailext (
+//                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+//                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+//                     attachmentsPattern: 'client/' + env.RESULT_PATH  +'.zip',
+//                     mimeType: 'text/html',
+//                     to: "vivek.topiya@thegatewaycorp.co.in",
+//                     from: "jmeter-pts@thegatewaycorp.co.in"
+//                 )
+//             }
+//         }
+    }
+    post {
+        success {
+           sh 'zip -r client/' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
+           emailext (
+               subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}' Successful",
+               body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+               attachmentsPattern: 'client/' + env.RESULT_PATH  +'.zip',
+               mimeType: 'text/html',
+               to: "vivek.topiya@thegatewaycorp.co.in",
+               from: "jmeter-pts@thegatewaycorp.co.in"
+           )
+        }
+        failure {
+           emailext (
+              subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}' Failed",
+              body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+              mimeType: 'text/html',
+              to: "vivek.topiya@thegatewaycorp.co.in",
+              from: "jmeter-pts@thegatewaycorp.co.in"
+          )
         }
     }
 }
