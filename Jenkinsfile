@@ -14,9 +14,9 @@ pipeline {
 
 
             steps {
-                sh 'docker run --rm  knovel-jmeter:1.0 '
-//                 sh 'chmod +x ./client.sh'
-//                 sh './client.sh'
+//                 sh 'docker run --rm  knovel-jmeter:1.0 '
+                sh 'chmod +x ./client.sh'
+                sh './client.sh'
             }
         }
     }
