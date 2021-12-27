@@ -17,7 +17,7 @@ pipeline {
             steps {
 
                 sh 'chmod +x ./client.sh'
-                sh 'sh ./client.sh'
+                sh './client.sh'
             }
         }
     }
