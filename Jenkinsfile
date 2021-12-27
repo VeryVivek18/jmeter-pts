@@ -20,24 +20,26 @@ pipeline {
 
         stage ('Running Jmeter Tests') {
             steps {
-                UID = sh(script: "(id -u)", returnStdout: true)
-                GID = sh(script: "(id -g)", returnStdout: true)
-                UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
-                GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
-                UGID = UID2 + ":" + GID2
-                println("group id is : ${UID2}:${GID2}")
-                println("group id is : ${UGID}")
-                sh 'docker run \
-                    --user ${UGID} \
-                    --network host \
-                    -v "${volume_path}":${jmeter_path} \
-                    --rm \
-                    knovel-jmeter:1.0 \
-                    -n -X \
-                    -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
-                    -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                    -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
-                    -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
+                script{
+                    UID = sh(script: "(id -u)", returnStdout: true)
+                    GID = sh(script: "(id -g)", returnStdout: true)
+                    UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
+                    GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
+                    UGID = UID2 + ":" + GID2
+                    println("group id is : ${UID2}:${GID2}")
+                    println("group id is : ${UGID}")
+                    sh 'docker run \
+                        --user ${UGID} \
+                        --network host \
+                        -v "${volume_path}":${jmeter_path} \
+                        --rm \
+                        knovel-jmeter:1.0 \
+                        -n -X \
+                        -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
+                        -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
+                        -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
+                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
+                }
             }
         }
 
