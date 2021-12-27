@@ -35,6 +35,7 @@ pipeline {
         stage ('Test Aggregation') {
             steps {
                 sh 'ls client'
+                sh '${build_id}'
                 sh 'zip -r ${build_id}.zip client'
                 sh 'ls -a'
 //                 emailext (
