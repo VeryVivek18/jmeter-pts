@@ -9,7 +9,7 @@ jmeter_path=/mnt/jmeter
 
 #5
 echo "Create client and execute test"
-sudo docker run \
+docker run \
   --network host \
   -v "${volume_path}":${jmeter_path} \
   --rm \
