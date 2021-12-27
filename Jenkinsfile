@@ -66,8 +66,8 @@ pipeline {
                             -n -X \
                             -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
                             -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                            -l ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'/internal-solr-result_${timestamp}.csv \
-                            -j ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'/internal-solr-jmeter_${timestamp}.log'
+                            -l ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'-result_${timestamp}.csv \
+                            -j ${jmeter_path}/client/'+env.RESULT_PATH+'/'+server+'-jmeter_${timestamp}.log'
                     }
                 }
             }
