@@ -53,7 +53,7 @@ pipeline {
                     attachmentsPattern: 'client/' + env.RESULT_PATH  +'.zip',
                     mimeType: 'text/html',
                     to: "vivek.topiya@thegatewaycorp.co.in",
-                    from: "abc@thegatewaycorp.co.in"
+                    from: "abc@gmail.com"
                 )
             }
         }
