@@ -6,7 +6,7 @@ pipeline {
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
             BUILD_ID = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
-            ZIPFILE = "${BUILD_ID}-${timestamp}"
+            RESULT_PATH = "${BUILD_ID}-${timestamp}"
         }
 
     stages {
@@ -20,8 +20,15 @@ pipeline {
 
         stage ('Running Jmeter Tests') {
             steps {
-                sh 'sudo rm -rf ${jmeter_path}/client'
+                UID = sh(script: "(id -u)", returnStdout: true)
+                GID = sh(script: "(id -g)", returnStdout: true)
+                UID2 = UID.replaceAll("\r\n|\n\r|\n|\r", "")
+                GID2 = GID.replaceAll("\r\n|\n\r|\n|\r", "")
+                UGID = UID2 + ":" + GID2
+                println("group id is : ${UID2}:${GID2}")
+                println("group id is : ${UGID}")
                 sh 'docker run \
+                    --user ${UGID} \
                     --network host \
                     -v "${volume_path}":${jmeter_path} \
                     --rm \
@@ -29,19 +36,19 @@ pipeline {
                     -n -X \
                     -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
                     -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
-                    -l ${jmeter_path}/client/result_${timestamp}.csv \
-                    -j ${jmeter_path}/client/jmeter_${timestamp}.log'
+                    -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
+                    -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
             }
         }
 
-        stage ('Test Aggregation') {
+        stage ('Test Report Handling') {
             steps {
                 sh 'ls client'
-                sh 'zip -r ' + env.ZIPFILE + '.zip client'
+                sh 'zip -r ' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
                 emailext (
                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
-                    attachmentsPattern: env.ZIPFILE +'.zip',
+                    attachmentsPattern: env.RESULT_PATH +'.zip',
                     mimeType: 'text/html',
                     to: "vivek.topiya@thegatewaycorp.co.in",
                     from: "vivek.topiya@thegatewaycorp.co.in"
