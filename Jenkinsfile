@@ -38,7 +38,7 @@ pipeline {
                         -Jclient.rmi.localport=7000 -Jserver.rmi.ssl.disable=true \
                         -t ${jmeter_path}/jmx/SearchSubstancesInternalSolr.jmx \
                         -l ${jmeter_path}/client/'+env.RESULT_PATH+'/result_${timestamp}.csv \
-                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'jmeter_${timestamp}.log'
+                        -j ${jmeter_path}/client/'+env.RESULT_PATH+'/jmeter_${timestamp}.log'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
         stage ('Test Report Handling') {
             steps {
                 sh 'ls client'
-                sh 'zip -r ' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
+                sh 'zip -r client/' + env.RESULT_PATH + '.zip client/'+env.RESULT_PATH
                 emailext (
                     subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
                     body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
