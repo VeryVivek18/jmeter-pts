@@ -17,14 +17,16 @@ pipeline {
 //                 name: 'REQUESTED_FILE1')
 //             )
 
-              extendedChoice description: 'select api to build image',
-                             multiSelectDelimiter: ',',
-                             name: 'API Selection',
-                             propertyFile:  'ApiList.properties',
-                             quoteValue: false, saveJSONParameterToFile: false,
-                             type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
-                             value: 'Type,Api',
-                             visibleItemCount: 5
+//               extendedChoice description: 'select api to build image',
+//                              multiSelectDelimiter: ',',
+//                              name: 'API Selection',
+//                              propertyFile:  'ApiList.properties',
+//                              quoteValue: false, saveJSONParameterToFile: false,
+//                              type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
+//                              value: 'Type,Api',
+//                              visibleItemCount: 5,
+//                              format: 'CSV'
+              extendedChoice multiSelectDelimiter: ',', name: 'Select Type and Api', quoteValue: false, saveJSONParameterToFile: false, type: 'PT_SINGLE_SELECT', value: 'Jmeter->SearchSubstancesInternalSolr, Jmeter->SearchSubstancesApi, Direct->Anything, Direct->Something', visibleItemCount: 5
 
 
         }
