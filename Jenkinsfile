@@ -20,7 +20,7 @@ pipeline {
               extendedChoice description: 'select api to build image',
                              multiSelectDelimiter: ',',
                              name: 'API Selection',
-                             propertyFile: '${WORKSPACE}/ApiList.properties',
+                             propertyFile: env.PROPERTIES_FILE,
                              quoteValue: false, saveJSONParameterToFile: false,
                              type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
                              value: 'Type,Api',
@@ -31,6 +31,7 @@ pipeline {
 
     environment {
             APPLICATION = "SearchSubstancesInternalSolr,SearchSubstancesApi"
+            PROPERTIES_FILE = "${WORKSPACE}/ApiList.properties"
             timestamp = sh(returnStdout: true, script: 'date +%Y%m%d_%H%M%S').trim()
             volume_path = sh(returnStdout: true, script: 'pwd').trim()
             jmeter_path = "/mnt/jmeter"
