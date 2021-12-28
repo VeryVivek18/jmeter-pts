@@ -16,7 +16,7 @@ pipeline {
 //                 description: 'Select file for perticular test otherwise all test will be performed.',
 //                 name: 'REQUESTED_FILE1')
 //             )
-            parameters {
+
               extendedChoice description: 'select api to build image',
                              multiSelectDelimiter: ',',
                              name: 'API Selection',
@@ -25,7 +25,7 @@ pipeline {
                              type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
                              value: 'Type,Api',
                              visibleItemCount: 5
-            }
+
 
         }
 
