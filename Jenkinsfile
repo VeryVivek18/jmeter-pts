@@ -5,6 +5,17 @@ pipeline {
                 choices: ['All', 'SearchSubstancesInternalSolr' , 'SearchSubstancesApi'],
                 description: 'Select file for perticular test otherwise all test will be performed.',
                 name: 'REQUESTED_FILE')
+            multiselect(
+                configuration: ['H,Type,Api',
+                                'V,SELECTED_TYPE,SELECTED_API',
+                                'C,JMeter,SearchSubstancesInternalSolr',
+                                'C,JMeter,SearchSubstancesApi',
+                                'C,Direct,Rumelner TV',
+                                'C,Direct,FC Rumeln'
+]
+                description: 'Select file for perticular test otherwise all test will be performed.',
+                name: 'REQUESTED_FILE1')
+            )
         }
 
     environment {
