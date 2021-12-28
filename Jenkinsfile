@@ -16,14 +16,17 @@ pipeline {
 //                 description: 'Select file for perticular test otherwise all test will be performed.',
 //                 name: 'REQUESTED_FILE1')
 //             )
-            multiselect decisionTree: '''H,Type,Api
-                                         V,SELECTED_TYPE,SELECTED_API
-                                         C,JMeter,SearchSubstancesInternalSolr
-                                         C,JMeter,SearchSubstancesApi
-                                         C,Direct,Rumelner TV
-                                         C,Direct,FC Rumeln''' as de.westemeyer.plugins.multiselect.MultiselectDecisionTree,
-                        description: 'Select file for particular build',
-                        name: 'REQUESTED_FILE'
+            parameters {
+              extendedChoice description: 'select api to build image',
+                             multiSelectDelimiter: ',',
+                             name: 'API Selection',
+                             propertyFile: 'ApiList.properties',
+                             quoteValue: false, saveJSONParameterToFile: false,
+                             type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
+                             value: 'Type,Api',
+                             visibleItemCount: 5
+            }
+
         }
 
     environment {
