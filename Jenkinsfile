@@ -21,7 +21,7 @@ pipeline {
                                          C,JMeter,SearchSubstancesInternalSolr
                                          C,JMeter,SearchSubstancesApi
                                          C,Direct,Rumelner TV
-                                         C,Direct,FC Rumeln''',
+                                         C,Direct,FC Rumeln''' as de.westemeyer.plugins.multiselect.MultiselectDecisionTree,
                         description: 'Select file for particular build',
                         name: 'REQUESTED_FILE'
         }
