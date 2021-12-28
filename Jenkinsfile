@@ -16,11 +16,11 @@ pipeline {
 //                 description: 'Select file for perticular test otherwise all test will be performed.',
 //                 name: 'REQUESTED_FILE1')
 //             )
-            multiselect decisionTree: "H,Type,Api
-                                       V,SELECTED_TYPE,SELECTED_API
-                                       C,JMeter,SearchSubstancesInternalSolr
-                                       C,JMeter,SearchSubstancesApi
-                                       C,Direct,Rumelner TV
+            multiselect decisionTree: "H,Type,Api\n
+                                       V,SELECTED_TYPE,SELECTED_API\n
+                                       C,JMeter,SearchSubstancesInternalSolr\n
+                                       C,JMeter,SearchSubstancesApi\n
+                                       C,Direct,Rumelner TV\n
                                        C,Direct,FC Rumeln",
                         description: 'Select file for particular build',
                         name: 'REQUESTED_FILE'
