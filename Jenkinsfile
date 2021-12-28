@@ -15,7 +15,7 @@ pipeline {
         UID = sh(returnStdout: true, script: "(id -u)").trim()
         GID = sh(returnStdout: true, script: "(id -g)").trim()
         UGID = "${UID}:${GID}"
-        MAIL_TO = "vivek.topiya@thegatewaycorp.co.in"
+        MAIL_TO = "vivek.topiya@thegatewaycorp.co.in, pooja.mistry@thegatewaycorp.co.in"
         MAIL_FROM = "jmeter-pts@thegatewaycorp.co.in"
     }
     stages {
