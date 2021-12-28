@@ -20,7 +20,7 @@ pipeline {
               extendedChoice description: 'select api to build image',
                              multiSelectDelimiter: ',',
                              name: 'API Selection',
-                             propertyFile:  env.WORKSPACE+"/ApiList.properties",
+                             propertyFile:  env.PROPERTIES_FILE,
                              quoteValue: false, saveJSONParameterToFile: false,
                              type: 'PT_MULTI_LEVEL_SINGLE_SELECT',
                              value: 'Type,Api',
