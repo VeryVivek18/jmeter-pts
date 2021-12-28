@@ -30,6 +30,7 @@ pipeline {
                     sh 'docker run \
                         --user ' + env.UGID + ' \
                         --network host \
+                        -p 8080:8080 \
                         -v "${volume_path}":${jmeter_path} \
                         --rm \
                         knovel-jmeter:1.0 \
