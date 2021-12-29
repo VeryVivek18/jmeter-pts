@@ -14,6 +14,7 @@ ENV JMETER_PLUGINS_FOLDER ${JMETER_HOME}/lib/ext/
 # 5
 RUN    apk update \
 	&& apk upgrade \
+	&& apk add zip \
 	&& apk add ca-certificates \
 	&& update-ca-certificates \
     && apk add --update openjdk8-jre tzdata curl unzip bash \
@@ -39,6 +40,11 @@ ENV PATH $PATH:$JMETER_BIN
 COPY launch.sh /
 
 #9
+COPY jmx /mnt/jmeter/jmx
+
+#10
+COPY SesMailer.jar /mnt/jmeter/SesMailer.jar
+#110
 WORKDIR ${JMETER_HOME}
 
 #10
