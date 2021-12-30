@@ -25,9 +25,8 @@ export SMTP_AUTH_USER="AKIAWTZ3RP5V45XOY3TH"
 export SMTP_AUTH_PWD="BNiLedQuVHvhCOgIcnK1OgTkmok2ExHyIyzAISNBF2EK"
 export FROM="vivek.topiya@thegatewaycorp.co.in"
 export TO="vivek.topiya@thegatewaycorp.co.in"
+export ZIP_FILENAME="${jmeter_path}/JmeterRun-$@-${timestamp}.zip"
 
-zip -r ${jmeter_path}/JmeterRun-${timestamp}.zip ${jmeter_path}/client/
+zip -r ${ZIP_FILENAME} ${jmeter_path}/client/
 
-export ZIP_FILENAME="JmeterRun-${timestamp}.zip"
-
-java -jar ${jmeter_path}/SesMailer.jar ${jmeter_path}/JmeterRun-${timestamp}.zip
+java -jar ${jmeter_path}/SesMailer.jar ${ZIP_FILENAME}
